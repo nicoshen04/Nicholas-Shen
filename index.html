@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -5,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surf&Turf Table Layout</title>
   <style>
+  .table {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table:hover {
+  transform: scale(1.1); /* Aumenta o tamanho da mesa */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra sutil */
+}
+
     body {
       background-color: #000;
       color: #fff;
