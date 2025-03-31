@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surf&Turf Table Layout</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      overflow: auto;
+    }
+    h1 {
+      margin: 20px;
+      text-align: center;
+    }
+    .controls {
+      margin: 10px auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .controls input, .controls select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    .container {
+      position: relative;
+      width: 100vw;
+      min-height: 80vh;
+      height: auto;
+      background-color: #111;
+      margin: 0 auto;
+      overflow: auto;
+    }
+    .table {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: black;
+      transition: transform 0.2s;
+      cursor: not-allowed;
+    }
+    .table.available {
+      background-color: #00cc66;
+      cursor: pointer;
+    }
+    .table.booked {
+      background-color: #cc0000;
+      cursor: not-allowed;
+    }
+    .table:hover.available {
+      transform: scale(1.05);
+    }
+    .square {
+      width: 70px;
+      height: 70px;
+      background-color: #444;
+      border-radius: 12px;
+    }
+    .rectangle-medium {
+      width: 120px;
+      height: 70px;
+      background-color: #444;
+      border-radius: 12px;
+    }
+    .rectangle-large {
+      width: 160px;
+      height: 70px;
+      background-color: #444;
+      border-radius: 14px;
+    }
+    .bar {
+      position: absolute;
+      background: #0055cc;
+      width: 200px;
+      height: 120px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+    .modal iframe {
+      width: 90%;
+      height: 80%;
+      border: none;
+      border-radius: 12px;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .back-button, .modal-back {
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #fff;
+      color: #000;
+      cursor: pointer;
+      display: block;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escolha sua mesa no Surf&Turf</h1>
+  <div class="controls">
+    <input type="date" id="resDate" required />
+    <select id="mealPeriod" required>
+      <option value="">Horário</option>
+      <option value="almoco">Almoço</option>
+      <option value="janta">Jantar</option>
+    </select>
+    <select id="resTime" class="hidden" required></select>
+    <select id="resPeople" required>
+      <option value=""># Pessoas</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+  </div>
+  <div class="container">
+    <!-- Mesas -->
+    <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+    <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+    <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+    <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+    <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+    <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+    <div class="bar" style="top: 320px; left: 476px;">Bar</div>
+    <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+    <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+    <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+    <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+  </div>
+  <button class="back-button" onclick="resetForm()">Voltar</button>
+  <div class="modal" id="modal">
+    <iframe id="tallyFrame" src=""></iframe>
+    <button class="modal-back" onclick="closeModal()">Voltar</button>
+  </div>
+  <script>
+    let bookings = [];
+    window.addEventListener("DOMContentLoaded", () => {
+      const tables = document.querySelectorAll(".table");
+      const modal = document.getElementById("modal");
+      const tallyFrame = document.getElementById("tallyFrame");
+      const resDate = document.getElementById("resDate");
+      const resTime = document.getElementById("resTime");
+      const resPeople = document.getElementById("resPeople");
+      const mealPeriod = document.getElementById("mealPeriod");
+
+      const horarios = {
+        almoco: ["11:30", "12:00", "12:30", "13:00", "13:30", "14:00"],
+        janta: ["17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"]
+      };
+
+      mealPeriod.addEventListener("change", () => {
+        resTime.innerHTML = "";
+        const value = mealPeriod.value;
+        if (value && horarios[value]) {
+          resTime.classList.remove("hidden");
+          resTime.innerHTML = `<option value="">Selecione o horário</option>`;
+          horarios[value].forEach(h => {
+            const opt = document.createElement("option");
+            opt.value = h;
+            opt.textContent = h;
+            resTime.appendChild(opt);
+          });
+        } else {
+          resTime.classList.add("hidden");
+        }
+      });
+
+      function checkForm() {
+        return resDate.value && resTime.value && resPeople.value;
+      }
+
+async function fetchReservations() {
+  const selectedDate = document.getElementById("resDate").value;
+  if (!selectedDate) return [];
+
+  const url = `https://script.google.com/macros/s/AKfycbzpUvRaESiEUCsNbXoD8VXgDttf2tan_ylGkFk0Pw1-i5CoTI3BnAF9QfirvvZIrRL9hQ/exec?date=${selectedDate}`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error("Erro ao carregar as reservas");
+    }
+    return await res.json();
+  } catch (error) {
+    console.error("Erro ao buscar reservas:", error);
+    alert("Ocorreu um erro ao buscar as reservas. Tente novamente mais tarde.");
+    return [];
+  }
+}
+
+
+
+
+      async function unlockTables() {
+        const normalize = str => (str || "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").trim();
+        const timeToMinutes = timeStr => {
+          const [h, m] = timeStr.split(":").map(Number);
+          return h * 60 + m;
+        };
+
+        const numPeople = parseInt(resPeople.value);
+        const selectedDate = resDate.value;
+        const selectedTime = resTime.value;
+        const selectedTimeMin = timeToMinutes(selectedTime);
+
+        bookings = await fetchReservations();
+
+        tables.forEach((table) => {
+          const capacity = parseInt(table.dataset.capacity);
+          const tableName = table.dataset.table.toLowerCase().trim();
+
+          const conflicts = bookings.filter(b => {
+            if (normalize(b.table) !== normalize(tableName) || b.date !== selectedDate) return false;
+            const bookingTime = (b.time || "").trim().substring(0, 5);
+            const bookingTimeMin = timeToMinutes(bookingTime);
+            return bookingTimeMin < selectedTimeMin + 120 && bookingTimeMin + 120 > selectedTimeMin;
+          });
+
+          table.classList.remove("available", "booked");
+
+          if (conflicts.length > 0) {
+            table.classList.add("booked");
+            table.style.cursor = "not-allowed";
+          } else if (capacity >= numPeople) {
+            table.classList.add("available");
+            table.style.cursor = "pointer";
+          } else {
+            table.classList.add("booked");
+            table.style.cursor = "not-allowed";
+          }
+        });
+      }
+
+      [resDate, resTime, resPeople, mealPeriod].forEach((input) => {
+        input.addEventListener("change", () => {
+          if (checkForm() && !resTime.classList.contains("hidden")) {
+            unlockTables();
+          }
+        });
+      });
+
+      tables.forEach((table) => {
+        table.addEventListener("click", () => {
+          if (!table.classList.contains("available")) return;
+
+          const tableName = table.dataset.table;
+          const capacity = table.dataset.capacity;
+          const date = resDate.value;
+          const time = resTime.value;
+          const people = resPeople.value;
+
+          const tallyURL = `https://tally.so/r/3qzBZd?table=${encodeURIComponent(tableName)}&capacity=${capacity}&date=${date}&time=${time}&people=${people}`;
+          tallyFrame.src = tallyURL;
+          modal.classList.add("active");
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove("active");
+        tallyFrame.src = "";
+      }
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      window.resetForm = function () {
+        resDate.value = "";
+        resTime.innerHTML = "";
+        resTime.classList.add("hidden");
+        resPeople.value = "";
+        mealPeriod.value = "";
+        tables.forEach((table) => {
+          table.classList.remove("available", "booked");
+          table.style.cursor = "not-allowed";
+        });
+      };
+    });
+  </script>
+</body>
+</html>
