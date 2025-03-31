@@ -293,9 +293,10 @@ async function fetchReservations() {
       });
 
       function closeModal() {
-        modal.classList.remove("active");
-        tallyFrame.src = "";
-      }
+  modal.classList.remove("active");
+  tallyFrame.src = "";
+}
+window.closeModal = closeModal;
 
       modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
