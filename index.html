@@ -210,7 +210,7 @@ async function fetchReservations() {
   const selectedDate = document.getElementById("resDate").value;
   if (!selectedDate) return [];
 
-  const url = `https://script.google.com/macros/s/AKfycbzpUvRaESiEUCsNbXoD8VXgDttf2tan_ylGkFk0Pw1-i5CoTI3BnAF9QfirvvZIrRL9hQ/exec?date=${selectedDate}`;
+  const url = `https://script.google.com/macros/s/AKfycbyPWgK7Vd54SXQonZKXFg30iYQ3cYep_8Yvcafc1cl5nMLD3nFBF70K3gicwuRe-2iE3g/exec?date=${selectedDate}`;
 
   try {
     const res = await fetch(url);
