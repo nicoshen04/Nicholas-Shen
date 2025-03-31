@@ -252,7 +252,7 @@ const formattedBDate = bDate.toISOString().split("T")[0];
 
 if (normalize(b.table) !== normalize(tableName) || formattedBDate !== selectedDate) return false;
 
-            const bookingTime = (b.time || "").trim().substring(0, 5);
+            const bookingTime = String(b.time).trim().match(/\d{2}:\d{2}/)?.[0] || "";
             const bookingTimeMin = timeToMinutes(bookingTime);
             return bookingTimeMin < selectedTimeMin + 120 && bookingTimeMin + 120 > selectedTimeMin;
           });
