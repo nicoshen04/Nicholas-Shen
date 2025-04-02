@@ -59,9 +59,10 @@
       font-size: 1rem;
     }
 
-    .container {
-      position: relative;
-      width: 100vw;
+   .container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
       min-height: 80vh;
       height: auto;
       background-color: #111;
@@ -169,6 +170,50 @@
     .hidden {
       display: none;
     }
+    @media screen and (max-width: 768px) {
+  /* Scale down table size */
+.square, .rectangle-medium, .rectangle-large {
+transform: scale(0.75);
+transform-origin: top left;
+
+}
+
+
+  /* Make container padding smaller */
+  .container {
+    padding: 10px;
+  }
+
+  /* Stack controls vertically */
+  .controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Make inputs/selects take full width */
+  .controls input,
+  .controls select {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* Make modal iframe more mobile-friendly */
+  .modal iframe {
+    width: 95%;
+    height: 75%;
+  }
+
+.modal-back {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+}
+  * {
+  box-sizing: border-box;
+}
   </style>
 </head>
 <body>
@@ -366,4 +411,3 @@ window.closeModal = closeModal;
   </script>
 </body>
 </html>
-
