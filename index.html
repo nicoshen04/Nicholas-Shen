@@ -69,6 +69,12 @@
       overflow: auto;
     }
 
+    .table-wrapper {
+      position: relative;
+      width: 1000px; /* Approximate width based on the rightmost left value (900px) plus table width */
+      height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
+    }
+
     .table {
       position: absolute;
       display: flex;
@@ -174,25 +180,33 @@
     @media (max-width: 768px) {
       .container {
         overflow: hidden; /* Prevent both horizontal and vertical scrollbars */
-        display: flex; /* Use flexbox to center content */
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
-        min-height: 60vh; /* Reduce height to fit content better on mobile */
+        min-height: 50vh; /* Reduce height to fit content better on mobile */
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      /* Adjust table positions to center them on mobile */
-      .table, .bar {
-        /* Calculate the adjustment needed to center the layout */
-        /* The leftmost element is at left: 476px (the bar), and the rightmost is at left: 900px (Mesa 3) */
-        /* Total width of the layout is approximately 900px - 476px = 424px */
-        /* To center, we shift everything left by (viewport width - layout width) / 2 */
-        transform: translateX(calc((100vw - 424px) / 2 - 476px)) scale(0.7); /* Scale down to 70% of original size */
-        transform-origin: center center; /* Scale from the center of each element */
+      .table-wrapper {
+        /* Scale down the entire layout to fit mobile screens */
+        transform: scale(0.5); /* Scale to 50% to ensure it fits vertically and horizontally */
+        transform-origin: center center; /* Scale from the center */
+        width: 1000px; /* Keep the original width for positioning */
+        height: 650px; /* Keep the original height for positioning */
       }
 
       /* Adjust font size for better readability after scaling */
       .table, .bar {
         font-size: 0.8rem; /* Slightly smaller font size on mobile */
+      }
+
+      /* Minimize the back button on mobile */
+      .back-button {
+        padding: 5px; /* Make the button thinner */
+        width: 30px; /* Reduce width to make it smaller */
+        height: 30px; /* Make it a square button */
+        text-indent: -9999px; /* Hide the "Voltar" text */
+        background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>') no-repeat center center; /* Add a back arrow icon */
+        background-size: 20px 20px; /* Size the icon */
       }
     }
   </style>
@@ -220,18 +234,20 @@
     </select>
   </div>
   <div class="container">
-    <!-- Mesas -->
-    <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
-    <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
-    <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
-    <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
-    <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
-    <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
-    <div class="bar" style="top: 320px; left: 476px;">Bar</div>
-    <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
-    <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
-    <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
-    <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+    <div class="table-wrapper">
+      <!-- Mesas -->
+      <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+      <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+      <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+      <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+      <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+      <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+      <div class="bar" style="top: 320px; left: 476px;">Bar</div>
+      <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+      <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+      <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+      <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+    </div>
   </div>
   <button class="back-button" onclick="resetForm()">Voltar</button>
   <div class="modal" id="modal">
