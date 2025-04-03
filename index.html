@@ -193,8 +193,13 @@
         position: relative;
         width: 424px; /* Actual content width: 900px - 476px */
         height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
-        transform: scale(0.5); /* Scale to 50% to fit the viewport, removed translateX for centering */
+        transform: scale(0.5); /* Scale to 50% to fit the viewport */
         transform-origin: center center; /* Scale from the center */
+      }
+
+      /* Shift the tables and bar to center the content within the table-wrapper */
+      .table, .bar {
+        transform: translateX(-476px); /* Shift left by 476px to center the content (476px to 900px) */
       }
 
       /* Adjust font size for better readability after scaling */
