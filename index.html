@@ -72,20 +72,6 @@
       overflow: auto;
     }
 
-    .center-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      min-height: 80vh;
-    }
-
-    .table-wrapper {
-      position: relative;
-      width: 424px; /* Actual content width: 900px - 476px */
-      height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
-    }
-
     .table {
       position: absolute;
       display: flex;
@@ -197,20 +183,12 @@
         align-items: center;
       }
 
-      .center-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        min-height: 50vh;
-      }
-
       .table-wrapper {
-        /* Scale down the entire layout to fit mobile screens */
+        position: relative;
+        width: 424px; /* Actual content width: 900px - 476px */
+        height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
         transform: scale(0.5) translateX(-20px); /* Scale to 50% and shift left by 20px */
         transform-origin: center center; /* Scale from the center */
-        width: 424px; /* Actual content width */
-        height: 650px; /* Keep the original height for positioning */
       }
 
       /* Adjust font size for better readability after scaling */
@@ -253,22 +231,18 @@
     </select>
   </div>
   <div class="container">
-    <div class="center-wrapper">
-      <div class="table-wrapper">
-        <!-- Mesas with original left positions -->
-        <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
-        <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
-        <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
-        <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
-        <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
-        <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
-        <div class="bar" style="top: 320px; left: 476px;">Bar</div>
-        <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
-        <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
-        <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
-        <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
-      </div>
-    </div>
+    <!-- Mesas with original left positions -->
+    <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+    <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+    <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+    <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+    <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+    <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+    <div class="bar" style="top: 320px; left: 476px;">Bar</div>
+    <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+    <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+    <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+    <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
   </div>
   <button class="back-button" onclick="resetForm()">Voltar</button>
   <div class="modal" id="modal">
