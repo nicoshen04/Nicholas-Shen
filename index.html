@@ -59,6 +59,8 @@
       border-radius: 8px;
       border: none;
       font-size: 1rem;
+      background: white; /* Ensure white background for all inputs */
+      color: black; /* Ensure black text for all inputs */
     }
 
     .container {
@@ -179,6 +181,17 @@
       display: none;
     }
 
+    /* Custom wrapper for date input */
+    .date-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .date-wrapper input[type="date"] {
+      position: relative;
+      z-index: 1;
+    }
+
     /* Media query for mobile devices */
     @media (max-width: 768px) {
       .container {
@@ -216,13 +229,60 @@
         background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>') no-repeat center center; /* Add a back arrow icon */
         background-size: 20px 20px; /* Size the icon */
       }
+
+      /* Ensure consistent styling for inputs on mobile */
+      .controls input, .controls select {
+        width: 120px; /* Set a fixed width for all inputs */
+        box-sizing: border-box; /* Ensure padding doesn't affect the width */
+        background: white; /* White background */
+        color: black; /* Black text */
+      }
+
+      /* Custom placeholder for date input on mobile */
+      .date-wrapper::before {
+        content: "mm/dd/yyyy"; /* Pseudo-placeholder text */
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: #888; /* Grayed-out placeholder color */
+        font-size: 1rem;
+        pointer-events: none; /* Prevent interaction with the pseudo-placeholder */
+        z-index: 0;
+      }
+
+      .date-wrapper input[type="date"][data-has-value="true"]::before,
+      .date-wrapper input[type="date"]:focus::before {
+        content: none; /* Hide the pseudo-placeholder when a value is selected or focused */
+      }
+
+      /* Ensure the calendar picker icon is visible on mobile */
+      .date-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 1; /* Make the calendar icon visible */
+        cursor: pointer;
+      }
+    }
+
+    /* Desktop-specific adjustments */
+    @media (min-width: 769px) {
+      .date-wrapper input[type="date"] {
+        background: white; /* White background on desktop */
+        color: black; /* Black text on desktop */
+      }
+
+      .date-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 1; /* Ensure the calendar icon is visible on desktop */
+        cursor: pointer;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Reserve sua mesa no Surf&Turf</h1>
   <div class="controls">
-    <input type="date" id="resDate" required />
+    <div class="date-wrapper">
+      <input type="date" id="resDate" required />
+    </div>
     <select id="mealPeriod" required>
       <option value="">Horário</option>
       <option value="almoco">Almoço</option>
@@ -272,6 +332,23 @@
       const resTime = document.getElementById("resTime");
       const resPeople = document.getElementById("resPeople");
       const mealPeriod = document.getElementById("mealPeriod");
+
+      // Add custom attribute to track if the date input has a value
+      function updateDateInputState() {
+        if (resDate.value) {
+          resDate.setAttribute("data-has-value", "true");
+        } else {
+          resDate.removeAttribute("data-has-value");
+        }
+      }
+
+      resDate.addEventListener("change", updateDateInputState);
+      resDate.addEventListener("input", updateDateInputState);
+      resDate.addEventListener("focus", () => resDate.setAttribute("data-has-value", "true"));
+      resDate.addEventListener("blur", updateDateInputState);
+
+      // Initial check
+      updateDateInputState();
 
       const horarios = {
         almoco: ["11:30", "12:00", "12:30", "13:00", "13:30", "14:00"],
@@ -407,6 +484,7 @@
           table.classList.remove("available", "booked");
           table.style.cursor = "not-allowed";
         });
+        updateDateInputState(); // Reset the date input state
       };
     });
   </script>
