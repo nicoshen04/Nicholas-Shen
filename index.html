@@ -71,7 +71,7 @@
 
     .table-wrapper {
       position: relative;
-      width: 1000px; /* Approximate width based on the rightmost left value (900px) plus table width */
+      width: 424px; /* Actual content width: 900px - 476px */
       height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
     }
 
@@ -190,7 +190,7 @@
         /* Scale down the entire layout to fit mobile screens */
         transform: scale(0.5); /* Scale to 50% to ensure it fits vertically and horizontally */
         transform-origin: center center; /* Scale from the center */
-        width: 1000px; /* Keep the original width for positioning */
+        width: 424px; /* Actual content width */
         height: 650px; /* Keep the original height for positioning */
       }
 
@@ -235,18 +235,18 @@
   </div>
   <div class="container">
     <div class="table-wrapper">
-      <!-- Mesas -->
-      <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
-      <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
-      <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
-      <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
-      <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
-      <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
-      <div class="bar" style="top: 320px; left: 476px;">Bar</div>
-      <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
-      <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
-      <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
-      <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+      <!-- Mesas with adjusted left positions (subtract 476px to normalize to 0) -->
+      <div class="table square" style="top: 50px; left: 244px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div> <!-- 720px - 476px -->
+      <div class="table square" style="top: 50px; left: 334px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div> <!-- 810px - 476px -->
+      <div class="table square" style="top: 50px; left: 424px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div> <!-- 900px - 476px -->
+      <div class="table rectangle-large" style="top: 140px; left: 284px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div> <!-- 760px - 476px -->
+      <div class="table rectangle-medium" style="top: 230px; left: 234px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div> <!-- 710px - 476px -->
+      <div class="table rectangle-medium" style="top: 230px; left: 364px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div> <!-- 840px - 476px -->
+      <div class="bar" style="top: 320px; left: 0px;">Bar</div> <!-- 476px - 476px -->
+      <div class="table square" style="top: 460px; left: 19px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div> <!-- 495px - 476px -->
+      <div class="table square" style="top: 460px; left: 104px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div> <!-- 580px - 476px -->
+      <div class="table square" style="top: 550px; left: 19px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div> <!-- 495px - 476px -->
+      <div class="table square" style="top: 550px; left: 104px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div> <!-- 580px - 476px -->
     </div>
   </div>
   <button class="back-button" onclick="resetForm()">Voltar</button>
