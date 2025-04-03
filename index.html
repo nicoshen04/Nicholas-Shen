@@ -173,7 +173,7 @@
     /* Media query for mobile devices */
     @media (max-width: 768px) {
       .container {
-        overflow-x: hidden; /* Prevent horizontal scrollbar */
+        overflow: hidden; /* Prevent both horizontal and vertical scrollbars */
         display: flex; /* Use flexbox to center content */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
@@ -186,7 +186,13 @@
         /* The leftmost element is at left: 476px (the bar), and the rightmost is at left: 900px (Mesa 3) */
         /* Total width of the layout is approximately 900px - 476px = 424px */
         /* To center, we shift everything left by (viewport width - layout width) / 2 */
-        transform: translateX(calc((100vw - 424px) / 2 - 476px));
+        transform: translateX(calc((100vw - 424px) / 2 - 476px)) scale(0.7); /* Scale down to 70% of original size */
+        transform-origin: center center; /* Scale from the center of each element */
+      }
+
+      /* Adjust font size for better readability after scaling */
+      .table, .bar {
+        font-size: 0.8rem; /* Slightly smaller font size on mobile */
       }
     }
   </style>
