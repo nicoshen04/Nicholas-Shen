@@ -35,7 +35,9 @@
       color: #fff;
       font-family: sans-serif;
       margin: 0;
+      padding: 0; /* Ensure no default margins or padding */
       overflow: auto;
+      box-sizing: border-box; /* Ensure consistent box sizing */
     }
 
     h1 {
@@ -66,13 +68,22 @@
       height: auto;
       background-color: #111;
       margin: 0 auto;
+      padding: 0; /* Ensure no padding */
       overflow: auto;
+      display: flex; /* Use flexbox to center the wrapper */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
     }
 
     .table-wrapper {
       position: relative;
       width: 424px; /* Actual content width: 900px - 476px */
       height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
+    }
+
+    /* Adjust table positions for desktop to restore original left values */
+    .table, .bar {
+      left: calc(var(--left-offset) + 476px); /* Add 476px to the normalized left values */
     }
 
     .table {
@@ -194,6 +205,11 @@
         height: 650px; /* Keep the original height for positioning */
       }
 
+      /* Reset the left adjustment for mobile */
+      .table, .bar {
+        left: var(--left-offset); /* Use the normalized left values without the 476px offset */
+      }
+
       /* Adjust font size for better readability after scaling */
       .table, .bar {
         font-size: 0.8rem; /* Slightly smaller font size on mobile */
@@ -235,18 +251,18 @@
   </div>
   <div class="container">
     <div class="table-wrapper">
-      <!-- Mesas with adjusted left positions (subtract 476px to normalize to 0) -->
-      <div class="table square" style="top: 50px; left: 244px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div> <!-- 720px - 476px -->
-      <div class="table square" style="top: 50px; left: 334px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div> <!-- 810px - 476px -->
-      <div class="table square" style="top: 50px; left: 424px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div> <!-- 900px - 476px -->
-      <div class="table rectangle-large" style="top: 140px; left: 284px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div> <!-- 760px - 476px -->
-      <div class="table rectangle-medium" style="top: 230px; left: 234px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div> <!-- 710px - 476px -->
-      <div class="table rectangle-medium" style="top: 230px; left: 364px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div> <!-- 840px - 476px -->
-      <div class="bar" style="top: 320px; left: 0px;">Bar</div> <!-- 476px - 476px -->
-      <div class="table square" style="top: 460px; left: 19px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div> <!-- 495px - 476px -->
-      <div class="table square" style="top: 460px; left: 104px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div> <!-- 580px - 476px -->
-      <div class="table square" style="top: 550px; left: 19px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div> <!-- 495px - 476px -->
-      <div class="table square" style="top: 550px; left: 104px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div> <!-- 580px - 476px -->
+      <!-- Mesas with normalized left positions, using CSS custom property for left offset -->
+      <div class="table square" style="top: 50px; --left-offset: 244px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+      <div class="table square" style="top: 50px; --left-offset: 334px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+      <div class="table square" style="top: 50px; --left-offset: 424px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+      <div class="table rectangle-large" style="top: 140px; --left-offset: 284px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+      <div class="table rectangle-medium" style="top: 230px; --left-offset: 234px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+      <div class="table rectangle-medium" style="top: 230px; --left-offset: 364px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+      <div class="bar" style="top: 320px; --left-offset: 0px;">Bar</div>
+      <div class="table square" style="top: 460px; --left-offset: 19px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+      <div class="table square" style="top: 460px; --left-offset: 104px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+      <div class="table square" style="top: 550px; --left-offset: 19px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+      <div class="table square" style="top: 550px; --left-offset: 104px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
     </div>
   </div>
   <button class="back-button" onclick="resetForm()">Voltar</button>
