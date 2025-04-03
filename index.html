@@ -35,9 +35,9 @@
       color: #fff;
       font-family: sans-serif;
       margin: 0;
-      padding: 0; /* Ensure no default margins or padding */
+      padding: 0;
       overflow: auto;
-      box-sizing: border-box; /* Ensure consistent box sizing */
+      box-sizing: border-box;
     }
 
     h1 {
@@ -68,22 +68,22 @@
       height: auto;
       background-color: #111;
       margin: 0 auto;
-      padding: 0; /* Ensure no padding */
+      padding: 0;
       overflow: auto;
-      display: flex; /* Use flexbox to center the wrapper */
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
+    }
+
+    .center-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 80vh;
     }
 
     .table-wrapper {
       position: relative;
       width: 424px; /* Actual content width: 900px - 476px */
       height: 650px; /* Approximate height based on the tallest top value (550px) plus table height */
-    }
-
-    /* Adjust table positions for desktop to restore original left values */
-    .table, .bar {
-      left: calc(var(--left-offset) + 476px); /* Add 476px to the normalized left values */
     }
 
     .table {
@@ -197,17 +197,20 @@
         align-items: center;
       }
 
+      .center-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 50vh;
+      }
+
       .table-wrapper {
         /* Scale down the entire layout to fit mobile screens */
-        transform: scale(0.5); /* Scale to 50% to ensure it fits vertically and horizontally */
+        transform: scale(0.5) translateX(-20px); /* Scale to 50% and shift left by 20px */
         transform-origin: center center; /* Scale from the center */
         width: 424px; /* Actual content width */
         height: 650px; /* Keep the original height for positioning */
-      }
-
-      /* Reset the left adjustment for mobile */
-      .table, .bar {
-        left: var(--left-offset); /* Use the normalized left values without the 476px offset */
       }
 
       /* Adjust font size for better readability after scaling */
@@ -250,19 +253,21 @@
     </select>
   </div>
   <div class="container">
-    <div class="table-wrapper">
-      <!-- Mesas with normalized left positions, using CSS custom property for left offset -->
-      <div class="table square" style="top: 50px; --left-offset: 244px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
-      <div class="table square" style="top: 50px; --left-offset: 334px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
-      <div class="table square" style="top: 50px; --left-offset: 424px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
-      <div class="table rectangle-large" style="top: 140px; --left-offset: 284px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
-      <div class="table rectangle-medium" style="top: 230px; --left-offset: 234px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
-      <div class="table rectangle-medium" style="top: 230px; --left-offset: 364px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
-      <div class="bar" style="top: 320px; --left-offset: 0px;">Bar</div>
-      <div class="table square" style="top: 460px; --left-offset: 19px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
-      <div class="table square" style="top: 460px; --left-offset: 104px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
-      <div class="table square" style="top: 550px; --left-offset: 19px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
-      <div class="table square" style="top: 550px; --left-offset: 104px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+    <div class="center-wrapper">
+      <div class="table-wrapper">
+        <!-- Mesas with original left positions -->
+        <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+        <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+        <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+        <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+        <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+        <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+        <div class="bar" style="top: 320px; left: 476px;">Bar</div>
+        <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+        <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+        <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+        <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+      </div>
     </div>
   </div>
   <button class="back-button" onclick="resetForm()">Voltar</button>
