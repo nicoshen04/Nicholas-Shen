@@ -68,8 +68,12 @@
       margin: 0 auto;
       overflow: auto;
     }
-    
-
+    .table-wrapper {
+  position: relative;
+  width: 1000px;
+  height: 700px;
+  margin: 0 auto;
+}    
     .table {
       position: absolute;
       display: flex;
@@ -170,19 +174,38 @@
     .hidden {
       display: none;
     }
-    @media screen and (max-width: 768px) {
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@media screen and (max-width: 768px) {
+  body {
     overflow-x: hidden;
   }
 
-  .container > div {
-    transform: scale(0.75);
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
+    overflow-x: hidden;
+  }
+
+  .table-wrapper {
+    transform: scale(0.65); /* escalar toda a planta das mesas */
     transform-origin: top center;
-    width: fit-content;
     position: relative;
+    width: 1000px; /* mesma largura usada nas mesas */
+    height: 700px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .controls input,
+  .controls select {
+    width: 100%;
+    max-width: 320px;
   }
 }
 
@@ -210,8 +233,8 @@
       <option value="8">8</option>
     </select>
   </div>
-  <div class="container">
-    <!-- Mesas -->
+ <div class="container">
+  <div class="table-wrapper"> <!-- ✅ Novo container para centralizar e escalar no mobile -->
     <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
     <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
     <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
@@ -224,11 +247,8 @@
     <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
     <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
   </div>
-  <button class="back-button" onclick="resetForm()">Voltar</button>
-  <div class="modal" id="modal">
-    <iframe id="tallyFrame" src=""></iframe>
-    <button class="modal-back" onclick="closeModal()">Voltar</button>
-  </div>
+</div>
+
   <script>
     let bookings = [];
     window.addEventListener("DOMContentLoaded", () => {
