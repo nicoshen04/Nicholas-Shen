@@ -179,15 +179,13 @@
       display: none;
     }
 
-    /* Custom wrapper for date input on mobile */
+    /* Custom wrapper for date input */
     .date-wrapper {
       position: relative;
       display: inline-block;
     }
 
     .date-wrapper input[type="date"] {
-      background: transparent;
-      color: transparent; /* Hide the default text color initially */
       position: relative;
       z-index: 1;
     }
@@ -240,7 +238,25 @@
         background-size: 20px 20px; /* Size the icon */
       }
 
-      /* Custom placeholder styles for date input on mobile */
+      /* Ensure controls are spaced out and don't overlap */
+      .controls {
+        gap: 15px; /* Increase gap for better spacing */
+        min-width: 300px; /* Ensure the container doesn't get too narrow */
+        justify-content: center;
+      }
+
+      .controls input, .controls select {
+        width: 120px; /* Set a fixed width for all inputs and selects */
+        box-sizing: border-box; /* Ensure padding doesn't affect the width */
+      }
+
+      /* Custom styles for date input on mobile */
+      .date-wrapper input[type="date"] {
+        background: white; /* White background */
+        color: black; /* Black text */
+        width: 120px; /* Match the width of other inputs */
+      }
+
       .date-wrapper::before {
         content: "mm/dd/yyyy"; /* Pseudo-placeholder text */
         position: absolute;
@@ -253,14 +269,9 @@
         z-index: 0;
       }
 
-      .date-wrapper input[type="date"]:focus::before,
-      .date-wrapper input[type="date"][data-has-value="true"]::before {
-        content: none; /* Hide the pseudo-placeholder when focused or a value is selected */
-      }
-
-      .date-wrapper input[type="date"]:focus,
-      .date-wrapper input[type="date"][data-has-value="true"] {
-        color: #000; /* Show the actual date text in black when focused or a value is selected */
+      .date-wrapper input[type="date"][data-has-value="true"]::before,
+      .date-wrapper input[type="date"]:focus::before {
+        content: none; /* Hide the pseudo-placeholder when a value is selected or focused */
       }
     }
   </style>
