@@ -6,28 +6,28 @@
   <title>Surf&Turf Table Layout</title>
   <style>
     .table {
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Adicionando a transição de cor */
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     }
 
     .table.available {
-      background-color: #00cc66; /* Verde quando disponível */
+      background-color: #00cc66;
     }
 
     .table.booked {
-      background-color: #cc0000; /* Vermelho quando reservada */
+      background-color: #cc0000;
     }
 
     .table:hover {
-      transform: scale(1.1); /* Aumenta o tamanho da mesa */
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra sutil */
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .table.available:hover {
-      background-color: #00b44d; /* Cor mais escura ao passar o mouse sobre uma mesa disponível */
+      background-color: #00b44d;
     }
 
     .table.booked:hover {
-      background-color: #b30000; /* Cor mais escura quando uma mesa reservada é hoverizada */
+      background-color: #b30000;
     }
 
     body {
@@ -67,13 +67,18 @@
       background-color: #111;
       margin: 0 auto;
       overflow: auto;
+      display: flex; /* Add flex to center the wrapper */
+      justify-content: center; /* Center the wrapper horizontally */
+      align-items: center; /* Center the wrapper vertically */
     }
+
+    /* Wrapper for tables to group them together */
     .table-wrapper {
-  position: relative;
-  width: 1000px;
-  height: 700px;
-  margin: 0 auto;
-}    
+      position: relative;
+      width: 1000px; /* Approximate width to fit all tables as on desktop */
+      height: 650px; /* Approximate height to fit all tables as on desktop */
+    }
+
     .table {
       position: absolute;
       display: flex;
@@ -174,42 +179,20 @@
     .hidden {
       display: none;
     }
-@media screen and (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
 
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    overflow-x: hidden;
-  }
+    /* Media query for mobile devices */
+    @media (max-width: 768px) {
+      .table-wrapper {
+        transform: scale(0.5); /* Scale down the entire table layout to fit mobile screens */
+        transform-origin: top center; /* Ensure scaling happens from the top center */
+        width: 100%; /* Allow the wrapper to take full width */
+        height: auto; /* Adjust height dynamically */
+      }
 
-  .table-wrapper {
-    width: 1000px;
-    height: 700px;
-    transform: scale(0.6);
-    transform-origin: top center;
-    margin: 0 auto;
-  }
-
-  .controls {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .controls input,
-  .controls select {
-    width: 100%;
-    max-width: 320px;
-  }
-}
-
-
+      .container {
+        min-height: 50vh; /* Reduce the container height on mobile to avoid excessive scrolling */
+      }
+    }
   </style>
 </head>
 <body>
@@ -234,22 +217,27 @@
       <option value="8">8</option>
     </select>
   </div>
- <div class="container">
-  <div class="table-wrapper"> <!-- ✅ Novo container para centralizar e escalar no mobile -->
-    <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
-    <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
-    <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
-    <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
-    <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
-    <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
-    <div class="bar" style="top: 320px; left: 476px;">Bar</div>
-    <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
-    <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
-    <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
-    <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+  <div class="container">
+    <div class="table-wrapper">
+      <!-- Mesas -->
+      <div class="table square" style="top: 50px; left: 720px;" data-table="Mesa 1" data-capacity="2">Mesa 1</div>
+      <div class="table square" style="top: 50px; left: 810px;" data-table="Mesa 2" data-capacity="2">Mesa 2</div>
+      <div class="table square" style="top: 50px; left: 900px;" data-table="Mesa 3" data-capacity="2">Mesa 3</div>
+      <div class="table rectangle-large" style="top: 140px; left: 760px;" data-table="Mesa 4" data-capacity="8">Mesa 4</div>
+      <div class="table rectangle-medium" style="top: 230px; left: 710px;" data-table="Mesa 5" data-capacity="4">Mesa 5</div>
+      <div class="table rectangle-medium" style="top: 230px; left: 840px;" data-table="Mesa 6" data-capacity="4">Mesa 6</div>
+      <div class="bar" style="top: 320px; left: 476px;">Bar</div>
+      <div class="table square" style="top: 460px; left: 495px;" data-table="Mesa 8" data-capacity="2">Mesa 8</div>
+      <div class="table square" style="top: 460px; left: 580px;" data-table="Mesa 9" data-capacity="2">Mesa 9</div>
+      <div class="table square" style="top: 550px; left: 495px;" data-table="Mesa 10" data-capacity="2">Mesa 10</div>
+      <div class="table square" style="top: 550px; left: 580px;" data-table="Mesa 11" data-capacity="2">Mesa 11</div>
+    </div>
   </div>
-</div>
-
+  <button class="back-button" onclick="resetForm()">Voltar</button>
+  <div class="modal" id="modal">
+    <iframe id="tallyFrame" src=""></iframe>
+    <button class="modal-back" onclick="closeModal()">Voltar</button>
+  </div>
   <script>
     let bookings = [];
     window.addEventListener("DOMContentLoaded", () => {
@@ -287,27 +275,24 @@
         return resDate.value && resTime.value && resPeople.value;
       }
 
-async function fetchReservations() {
-  const selectedDate = document.getElementById("resDate").value;
-  if (!selectedDate) return [];
+      async function fetchReservations() {
+        const selectedDate = document.getElementById("resDate").value;
+        if (!selectedDate) return [];
 
-  const url = `https://script.google.com/macros/s/AKfycbzJAG4jaJ3nG0mN8fMn3HzHyUhbwBk0SjmuqUmz-Gypk1L3OE7SOOeHlNaJoq9BxRO03Q/exec?date=${selectedDate}`;
+        const url = `https://script.google.com/macros/s/AKfycbzJAG4jaJ3nG0mN8fMn3HzHyUhbwBk0SjmuqUmz-Gypk1L3OE7SOOeHlNaJoq9BxRO03Q/exec?date=${selectedDate}`;
 
-  try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error("Erro ao carregar as reservas");
-    }
-    return await res.json();
-  } catch (error) {
-    console.error("Erro ao buscar reservas:", error);
-    alert("Ocorreu um erro ao buscar as reservas. Tente novamente mais tarde.");
-    return [];
-  }
-}
-
-
-
+        try {
+          const res = await fetch(url);
+          if (!res.ok) {
+            throw new Error("Erro ao carregar as reservas");
+          }
+          return await res.json();
+        } catch (error) {
+          console.error("Erro ao buscar reservas:", error);
+          alert("Ocorreu um erro ao buscar as reservas. Tente novamente mais tarde.");
+          return [];
+        }
+      }
 
       async function unlockTables() {
         const normalize = str => (str || "").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").trim();
@@ -329,9 +314,9 @@ async function fetchReservations() {
 
           const conflicts = bookings.filter(b => {
             const bDate = new Date(b.date);
-const formattedBDate = bDate.toISOString().split("T")[0];
+            const formattedBDate = bDate.toISOString().split("T")[0];
 
-if (normalize(b.table) !== normalize(tableName) || formattedBDate !== selectedDate) return false;
+            if (normalize(b.table) !== normalize(tableName) || formattedBDate !== selectedDate) return false;
 
             const bookingTime = String(b.time).trim().match(/\d{2}:\d{2}/)?.[0] || "";
             const bookingTimeMin = timeToMinutes(bookingTime);
@@ -378,12 +363,11 @@ if (normalize(b.table) !== normalize(tableName) || formattedBDate !== selectedDa
       });
 
       function closeModal() {
-  modal.classList.remove("active");
-  tallyFrame.src = "";
-  if (checkForm()) unlockTables();
-
-}
-window.closeModal = closeModal;
+        modal.classList.remove("active");
+        tallyFrame.src = "";
+        if (checkForm()) unlockTables();
+      }
+      window.closeModal = closeModal;
 
       modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
